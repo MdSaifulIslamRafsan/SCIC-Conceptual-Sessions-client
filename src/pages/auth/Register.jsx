@@ -14,14 +14,21 @@ export default function Register() {
         const password = form.password.value;
         const userData = { fullName, phoneNumber, email, nid, role, password }
         axios.post('http://localhost:5000/register', userData)
-          .then( (response) =>{
-            console.log(response);
+          .then( (response) =>{ 
+            console.log(response.data);
+            if (response?.data?.success) {
+                localStorage.setItem('accessToken ', response?.data?.token)
+            }
+            if (response?.data?.status === 400) {
+                alert(response?.data?.error);
+            }
+            
           })
           .catch( (error) => {
-            console.log(error);
+            console.error('There was an error!', error.response ? error.response.data : error.message);
           });
 
-        console.log({ fullName, phoneNumber, email, nid, role, password })
+      
     }
     return (
         <div className="min-h-screen flex justify-center items-center">

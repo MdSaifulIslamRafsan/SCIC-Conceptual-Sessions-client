@@ -15,7 +15,6 @@ export default function Register() {
         const userData = { fullName, phoneNumber, email, nid, role, password }
         axios.post('http://localhost:5000/register', userData)
           .then( (response) =>{ 
-            console.log(response.data);
             if (response?.data?.success) {
                 localStorage.setItem('accessToken ', response?.data?.token)
             }

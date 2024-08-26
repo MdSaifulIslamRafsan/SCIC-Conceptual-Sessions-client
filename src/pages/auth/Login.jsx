@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 
 export default function Login() {
+    const token = localStorage.getItem('accessToken');
     const handleLogin = (e) => {
         e.preventDefault()
         const form = e.target;
@@ -10,7 +11,11 @@ export default function Login() {
         const password = form.password.value;
         const userData = {phoneNumber , password}
 
-        axios.post('http://localhost:5000/login', userData)
+        axios.post('http://localhost:5000/login', userData,{
+            headers: {
+                Authorization: `Bearer ${token}`, // Add the Bearer token to the Authorization header
+            }
+        })
         .then( (response) =>{ 
             console.log(response?.data);
             
